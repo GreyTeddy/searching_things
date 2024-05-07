@@ -3,6 +3,9 @@
   "name": "Search Things",
   "description": "An extension to automate the search of news",
   "version": "0.1",
+  "permissions": [
+    "tabGroups"
+  ],
   "action": {
     "default_popup": "hello.html"
   }
