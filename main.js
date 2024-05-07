@@ -41,15 +41,15 @@ form.addEventListener("submit", async (event) => {
 
   const buttonData = new FormData(form);
   const group_name = buttonData.get("search_group");
-  const group_pages = pages.filter((e)=>e.name == group_name)[0].pages;
+  const group_pages = pages.filter((e) => e.name == group_name)[0].pages;
 
   for (let pagesIndex = 0; pagesIndex < group_pages.length; pagesIndex++) {
     const page_URL = group_pages[pagesIndex];
-    tabs.push(await chrome.tabs.create({url:page_URL.replaceAll("{{}}",encodeURIComponent(input.value))}))
+    tabs.push(await chrome.tabs.create({ url: page_URL.replaceAll("{{}}", encodeURIComponent(input.value)) }))
   }
 
-  const tabIds = tabs.map(({id}) => id);
-  if (tabIds.length == 0){
+  const tabIds = tabs.map(({ id }) => id);
+  if (tabIds.length == 0) {
     return
   }
   const group = await chrome.tabs.group({ tabIds });
