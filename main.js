@@ -6,18 +6,22 @@ const pages = [
     "name": "General",
     "pages": [
       "https://www.google.com/search?q={{}}",
-      "https://uk.search.yahoo.com/search?p={{}}"
+      "https://uk.search.yahoo.com/search?p={{}}",
+      "https://duckduckgo.com/?q={{}}",
+      "https://www.baidu.com/s?wd={{}}&oq={{}}",
+      "https://www.ecosia.org/search?q={{}}",
+      "https://www.bing.com/search?q={{}}",
     ],
   },
   {
     "name": "Stocks",
     "pages": [
-      "https://uk.finance.yahoo.com/quote/{{}}"
+      "https://uk.finance.yahoo.com/quote/{{}}",
+      "https://www.tradingview.com/symbols/{{}}/",
     ]
   }
 ]
 
-// create_radio_buttons
 const radio_buttons = []
 for (let pagesIndex = 0; pagesIndex < pages.length; pagesIndex++) {
   const element = pages[pagesIndex];
