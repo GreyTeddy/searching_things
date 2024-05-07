@@ -31,7 +31,6 @@ radioButtonDiv.innerHTML = radio_buttons.join(" ")
 radioButtonDiv.firstElementChild.checked = true
 input.focus()
 form.addEventListener("submit", async (event) => {
-  // console.log(event);
   const tabs = []
   const input = document.querySelector("input");
   if (input.value.length == 0) return;
@@ -50,6 +49,5 @@ form.addEventListener("submit", async (event) => {
     return
   }
   const group = await chrome.tabs.group({ tabIds });
-  console.log(chrome);
   await chrome.tabGroups.update(group, { title: input.value });
 });
