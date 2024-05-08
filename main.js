@@ -45,13 +45,18 @@ form.addEventListener("submit", async (event) => {
 
   for (let pagesIndex = 0; pagesIndex < group_pages.length; pagesIndex++) {
     const page_URL = group_pages[pagesIndex];
-    tabs.push(await chrome.tabs.create({ url: page_URL.replaceAll("{{}}", encodeURIComponent(input.value)) }))
+    tabs.push(chrome.tabs.create({ url: page_URL.replaceAll("{{}}", encodeURIComponent(input.value)) }))
   }
 
-  const tabIds = tabs.map(({ id }) => id);
-  if (tabIds.length == 0) {
-    return
-  }
-  const group = await chrome.tabs.group({ tabIds });
-  await chrome.tabGroups.update(group, { title: input.value });
+  /**
+   * very weird syntax
+   * but things have to resolved using promise.then
+   * as there seems to be a limit on how many awaits there can be
+   * (it looks like it's 5 to 6 awaits)
+   */
+  Promise.all(tabs).then((tabs) => {
+    Promise.any([chrome.tabs.group({ tabIds: tabs.map((tab) => tab.id) })]).then(groupId => {
+      chrome.tabGroups.update(groupId, { title: input.value });
+    })
+  })
 });
