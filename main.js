@@ -18,6 +18,7 @@ const pages = [
     "pages": [
       "https://uk.finance.yahoo.com/quote/{{}}",
       "https://www.tradingview.com/symbols/{{}}/",
+      "https://www.marketwatch.com/investing/index/{{}}",
     ]
   }
 ]
