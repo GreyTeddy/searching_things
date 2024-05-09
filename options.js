@@ -12,13 +12,15 @@ const restoreDefaults = async () => {
 document.getElementById('clear_groups').addEventListener('click', clearGroups);
 document.getElementById('restore_defaults').addEventListener('click', restoreDefaults);
 
-const addPage = async (group_name, page_URL) => {
+const addPage = async (group_name, page_URLs) => {
   let groupsAndPages = (await chrome.storage.sync.get())["groupsAndPages"]
   if (!groupsAndPages || groupsAndPages.map(e => e.name).indexOf(group_name) == -1) {
     return { success: false, reason: "Group Name does not exist" }
   }
   const index_of_group = groupsAndPages.map(e => e.name).indexOf(group_name)
-  groupsAndPages[index_of_group].pages.push(page_URL)
+  for (const url of page_URLs) {
+    groupsAndPages[index_of_group].pages.push(url);
+  }
   await chrome.storage.sync.set(
     { groupsAndPages: groupsAndPages },
     async () => {
@@ -93,7 +95,7 @@ const handleButtonClick = async (e) => {
 const handleFormSubmit = async (e) => {
   console.log(e)
   if (e.target.classList.contains("add-page-form")) {
-    console.log(await addPage(e.target.parentElement.previousSibling.textContent.trim(), e.target.firstChild.value))
+    console.log(await addPage(e.target.parentElement.previousSibling.textContent.trim(), e.target.firstChild.value.split(",").map(e=>e.trim())))
   } else if (e.target.classList.contains("add-group-form")) {
     console.log(e.target.firstChild.value)
     // return
