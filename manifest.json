@@ -3,9 +3,8 @@
   "name": "Search Things",
   "description": "An extension to automate the search of news",
   "version": "0.1",
-  "permissions": [
-    "tabGroups"
-  ],
+  "permissions": ["tabGroups", "storage"],
+  "options_page": "options.html",
   "action": {
     "default_popup": "hello.html"
   },
@@ -16,6 +15,5 @@
         "mac": "Command+Shift+S"
       }
     }
-
   }
 }
