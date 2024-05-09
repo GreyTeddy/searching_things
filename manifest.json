@@ -8,5 +8,14 @@
   ],
   "action": {
     "default_popup": "hello.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      }
+    }
+
   }
 }
