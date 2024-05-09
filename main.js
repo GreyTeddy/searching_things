@@ -1,38 +1,12 @@
+import { setDefaults } from "./defaults.js";
+
 const form = document.getElementById("search_term_form");
 const input = document.getElementById("search_text_input")
 const pagesGroupSelect = document.getElementById("pages_group_select")
-const defaultGroupsAndPages = [
-  {
-    "name": "General",
-    "pages": [
-      "https://www.google.com/search?q={{}}",
-      "https://uk.search.yahoo.com/search?p={{}}",
-      "https://duckduckgo.com/?q={{}}",
-      "https://www.baidu.com/s?wd={{}}&oq={{}}",
-      "https://www.ecosia.org/search?q={{}}",
-      "https://www.bing.com/search?q={{}}",
-    ],
-  },
-  {
-    "name": "Stocks",
-    "pages": [
-      "https://uk.finance.yahoo.com/quote/{{}}",
-      "https://www.tradingview.com/symbols/{{}}/",
-      "https://www.marketwatch.com/investing/index/{{}}",
-      "https://finviz.com/quote.ashx?t={{}}"
-    ]
-  }
-]
 
 const groupAndPages = (await chrome.storage.sync.get())["groupsAndPages"]
 if (groupAndPages == undefined) {
-  chrome.storage.sync.set(
-    { groupsAndPages: defaultGroupsAndPages },
-    async () => {
-      console.log(await chrome.storage.sync.get())
-      console.log("defaults set")
-    }
-  );
+  setDefaults()
 }
 
 const pages_group_options = []

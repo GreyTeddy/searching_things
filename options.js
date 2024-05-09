@@ -1,12 +1,18 @@
+import { setDefaults } from "./defaults.js";
+
 const clearGroups = async () => {
   await chrome.storage.sync.set({ groupsAndPages: [] });
   console.log(await chrome.storage.sync.get())
   location.reload()
 };
+const restoreDefaults = async () => {
+  await setDefaults()
+};
 
 document.getElementById('clear_groups').addEventListener('click', clearGroups);
+document.getElementById('restore_defaults').addEventListener('click', restoreDefaults);
 
-addPage = async (group_name, page_URL) => {
+const addPage = async (group_name, page_URL) => {
   let groupsAndPages = (await chrome.storage.sync.get())["groupsAndPages"]
   if (!groupsAndPages || groupsAndPages.map(e => e.name).indexOf(group_name) == -1) {
     return { success: false, reason: "Group Name does not exist" }
@@ -23,7 +29,7 @@ addPage = async (group_name, page_URL) => {
   return { success: true }
 }
 
-removePage = async (group_name, page_URL) => {
+const removePage = async (group_name, page_URL) => {
   let groupsAndPages = (await chrome.storage.sync.get())["groupsAndPages"]
   if (!groupsAndPages || groupsAndPages.map(e => e.name).indexOf(group_name) == -1) {
     return { success: false, reason: "Group Name does not exist" }
@@ -45,7 +51,7 @@ removePage = async (group_name, page_URL) => {
   return { success: true }
 }
 
-removeGroup = async (group_name) => {
+const removeGroup = async (group_name) => {
   let groupsAndPages = (await chrome.storage.sync.get())["groupsAndPages"]
   if (!groupsAndPages || groupsAndPages.map(e => e.name).indexOf(group_name) == -1) {
     return { success: false, reason: "Group Name does not exist" }
@@ -62,7 +68,7 @@ removeGroup = async (group_name) => {
   return { success: true }
 }
 
-addGroup = async (group_name) => {
+const addGroup = async (group_name) => {
   let groupsAndPages = (await chrome.storage.sync.get())["groupsAndPages"]
   if (!groupsAndPages || groupsAndPages.map(e => e.name).indexOf(group_name) != -1) {
     return { success: false, reason: "Group name already exists" }
