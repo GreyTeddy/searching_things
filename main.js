@@ -1,6 +1,6 @@
 const form = document.getElementById("search_term_form");
 const input = document.getElementById("search_text_input")
-const radioButtonDiv = document.getElementById("radio_inputs_to_be_populated")
+const pagesGroupSelect = document.getElementById("pages_group_select")
 const pages = [
   {
     "name": "General",
@@ -19,21 +19,21 @@ const pages = [
       "https://uk.finance.yahoo.com/quote/{{}}",
       "https://www.tradingview.com/symbols/{{}}/",
       "https://www.marketwatch.com/investing/index/{{}}",
+      "https://finviz.com/quote.ashx?t={{}}"
     ]
   }
 ]
 
-const radio_buttons = []
+const pages_group_options = []
 for (let pagesIndex = 0; pagesIndex < pages.length; pagesIndex++) {
   const element = pages[pagesIndex];
-  radio_buttons.push(`
-    <input type="radio" id="${element.name}_radio_button" name="search_group" value="${element.name}"/>
-    <label for="${element.name}_radio_button">${element.name}</label>
+  pages_group_options.push(`
+    <option id="${element.name}_option" name="${element.name}" value="${element.name}">${element.name}</option>
   `)
 }
 
-radioButtonDiv.innerHTML = radio_buttons.join(" ")
-radioButtonDiv.firstElementChild.checked = true
+pagesGroupSelect.innerHTML = pages_group_options.join(" ")
+pagesGroupSelect.firstElementChild.checked = true
 input.focus()
 form.addEventListener("submit", async (event) => {
   const tabs = []
@@ -41,7 +41,7 @@ form.addEventListener("submit", async (event) => {
   if (input.value.length == 0) return;
 
   const buttonData = new FormData(form);
-  const group_name = buttonData.get("search_group");
+  const group_name = buttonData.get("pages_group_select");
   const group_pages = pages.filter((e) => e.name == group_name)[0].pages;
 
   for (let pagesIndex = 0; pagesIndex < group_pages.length; pagesIndex++) {
