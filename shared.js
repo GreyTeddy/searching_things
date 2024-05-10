@@ -40,7 +40,7 @@ export const openTabs = async (group_name, search_term) => {
 
     for (let pagesIndex = 0; pagesIndex < group_pages.length; pagesIndex++) {
       const page_URL = group_pages[pagesIndex];
-      tabs.push(chrome.tabs.create({ url: page_URL.replaceAll("{{}}", encodeURIComponent(search_term)), active: false }))
+      tabs.push(chrome.tabs.create({ index: pagesIndex, url: page_URL.replaceAll("{{}}", encodeURIComponent(search_term)), active: false }))
     }
 
     /**
