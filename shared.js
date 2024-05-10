@@ -40,7 +40,7 @@ export const openTabs = async (group_name, search_term) => {
 
     for (let pagesIndex = 0; pagesIndex < group_pages.length; pagesIndex++) {
       const page_URL = group_pages[pagesIndex];
-      tabs.push(chrome.tabs.create({ url: page_URL.replaceAll("{{}}", encodeURIComponent(search_term)) }))
+      tabs.push(chrome.tabs.create({ url: page_URL.replaceAll("{{}}", encodeURIComponent(search_term)), active: false }))
     }
 
     /**
@@ -52,6 +52,7 @@ export const openTabs = async (group_name, search_term) => {
     Promise.all(tabs).then((tabs) => {
       Promise.any([chrome.tabs.group({ tabIds: tabs.map((tab) => tab.id) })]).then(groupId => {
         chrome.tabGroups.update(groupId, { title: search_term });
+        chrome.tabs.update(tabs[tabs.length-1].id, { active: true })
       })
     })
   })

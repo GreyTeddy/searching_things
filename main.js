@@ -23,6 +23,7 @@ if (pagesGroupSelect.firstElementChild) {
 }
 input.focus()
 form.addEventListener("submit", async (event) => {
+  event.preventDefault()
   const input = document.querySelector("input");
   if (input.value.length == 0) return;
 
