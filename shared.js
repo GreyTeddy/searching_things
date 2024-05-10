@@ -31,3 +31,28 @@ export const setDefaults = async () => {
     }
   );
 }
+
+export const openTabs = async (group_name, search_term) => {
+  chrome.storage.sync.get().then(storage => {
+    const tabs = [];
+    const groupsAndPages = storage["groupsAndPages"];
+    const group_pages = groupsAndPages.filter((e) => e.name == group_name)[0].pages;
+
+    for (let pagesIndex = 0; pagesIndex < group_pages.length; pagesIndex++) {
+      const page_URL = group_pages[pagesIndex];
+      tabs.push(chrome.tabs.create({ url: page_URL.replaceAll("{{}}", encodeURIComponent(search_term)) }))
+    }
+
+    /**
+     * very weird syntax
+     * but things have to resolved using promise.then
+     * as there seems to be a limit on how many awaits there can be
+     * (it looks like it's 5 to 6 awaits)
+     */
+    Promise.all(tabs).then((tabs) => {
+      Promise.any([chrome.tabs.group({ tabIds: tabs.map((tab) => tab.id) })]).then(groupId => {
+        chrome.tabGroups.update(groupId, { title: search_term });
+      })
+    })
+  })
+}
