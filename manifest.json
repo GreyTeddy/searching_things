@@ -6,7 +6,7 @@
   "permissions": ["tabGroups", "storage"],
   "options_page": "options.html",
   "action": {
-    "default_popup": "hello.html"
+    "default_popup": "index.html"
   },
   "commands": {
     "_execute_action": {

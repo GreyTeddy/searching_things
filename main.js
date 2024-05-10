@@ -1,4 +1,4 @@
-import { setDefaults } from "./defaults.js";
+import { setDefaults } from "./shared.js";
 
 const form = document.getElementById("search_term_form");
 const input = document.getElementById("search_text_input")

@@ -1,4 +1,4 @@
-import { setDefaults } from "./defaults.js";
+import { setDefaults } from "./shared.js";
 
 const clearGroups = async () => {
   await chrome.storage.sync.set({ groupsAndPages: [] });
@@ -122,11 +122,11 @@ const showPages = () => {
         ${group.pages.map(page_URL =>
           `<div><button class="remove-page-button groups-and-pages-button" style="margin-right: 5px">-</button>${page_URL}</div>`
         ).reduce((e, i) => e + i, "")}
-        <form class="add-page-form groups-and-pages-form"><input class="test" placeholder="Add Page"></input></form>
+        <form action="#" class="add-page-form groups-and-pages-form"><input class="test" placeholder="Add Page"></input></form>
         </div>
         `
       }
-      result += `<form class="add-group-form groups-and-pages-form"><input class="test" placeholder="Add Group"></input></form>`
+      result += `<form action="#" class="add-group-form groups-and-pages-form"><input class="test" placeholder="Add Group"></input></form>`
       document.getElementById('groups_and_pages').innerHTML = result;
       let groupsAndPagesButtons = document.getElementsByClassName('groups-and-pages-button');
       for (let index = 0; index < groupsAndPagesButtons.length; index++) {
