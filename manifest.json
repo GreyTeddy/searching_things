@@ -1,12 +1,15 @@
 {
   "manifest_version": 3,
   "name": "Search Things",
-  "description": "An extension to automate the search of news",
+  "description": "An extension to automate the search of things.",
   "version": "0.1",
   "permissions": ["tabGroups", "storage"],
   "options_page": "options.html",
   "action": {
     "default_popup": "index.html"
+  },
+  "icons": {
+    "128": "icon.png"
   },
   "commands": {
     "_execute_action": {
