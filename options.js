@@ -31,17 +31,13 @@ const addPage = async (group_name, page_URLs) => {
   return { success: true }
 }
 
-const removePage = async (group_name, page_URL) => {
+const removePage = async (group_name, page_index) => {
   let groupsAndPages = (await chrome.storage.sync.get())["groupsAndPages"]
   if (!groupsAndPages || groupsAndPages.map(e => e.name).indexOf(group_name) == -1) {
     return { success: false, reason: "Group Name does not exist" }
   }
   const index_of_group = groupsAndPages.map(e => e.name).indexOf(group_name)
-  const index_of_page = groupsAndPages[index_of_group].pages.indexOf(page_URL)
-  if (index_of_page == -1) {
-    return { success: false, reason: `Page URL ${page_URL} is not part of the group: ${group_name}` }
-  }
-  groupsAndPages[index_of_group].pages.splice(index_of_page, 1)
+  groupsAndPages[index_of_group].pages.splice(page_index, 1)
   await chrome.storage.sync.set(
     { groupsAndPages: groupsAndPages },
     async () => {
@@ -89,7 +85,7 @@ const handleButtonClick = async (e) => {
   if (e.target.classList.contains("remove-group-button")) {
     console.log(await removeGroup(e.target.nextSibling.data.trim()))
   } else if (e.target.classList.contains("remove-page-button")) {
-    console.log(await removePage(e.target.parentElement.parentElement.previousElementSibling.nextSibling.data.trim(), e.target.nextSibling.data.trim()))
+    console.log(await removePage(e.target.parentElement.parentElement.previousElementSibling.nextSibling.data.trim(), parseInt(e.target.getAttribute("key"))))
   }
 }
 const handleFormSubmit = async (e) => {
@@ -119,8 +115,8 @@ const showPages = () => {
         <button class="remove-group-button groups-and-pages-button" style='margin-right: 5px'>-</button>
         ${group.name}
         <div style="margin-left: 20px">
-        ${group.pages.map(page_URL =>
-          `<div><button class="remove-page-button groups-and-pages-button" style="margin-right: 5px">-</button>${page_URL}</div>`
+        ${group.pages.map((page_URL, index) =>
+          `<div><button class="remove-page-button groups-and-pages-button" key=${index} style="margin-right: 5px">-</button>${page_URL}</div>`
         ).reduce((e, i) => e + i, "")}
         <form action="#" class="add-page-form groups-and-pages-form"><input class="test" placeholder="Add Page"></input></form>
         </div>
