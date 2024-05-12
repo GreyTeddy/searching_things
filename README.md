@@ -1,12 +1,14 @@
 # Search Things
 
+
+
 An extension to search using multiple sites at once!
 
 
 ## Features
 - It creates a group of tabs of different websites that use the search term provided
   - The group is named after the search term.
-- The extension can be shown through a keyboard shortcut
+- The extension can be shown through a keyboard shortcut.
   - The shortcut can be changed in the Extensions Settings.
   - Defaults:
     - Windows/Linux: `Control` + `Shift` + `S`
@@ -16,8 +18,14 @@ An extension to search using multiple sites at once!
     - e.g. `https://www.google.com/search?q={{}}` to search the term on google
     - It can also be used multiple times if needed
       - e.g. `https://www.baidu.com/s?wd={{}}&oq={{}}`
-    - To add multiple pages at once you can use `,` as a delimiter
+    - To add multiple pages at once you can use `,` as a delimiter.
       - e.g `https://www.google.com/search?q={{}},https://www.baidu.com/s?wd={{}}&oq={{}}`
+
+## Installation
+
+- The extension is currently being reviewed, so availability on the chrome extension store is pending...
+- To install manually, you can find the release `.crx` package in the [Releases](https://github.com/GreyTeddy/searching_things/releases) page.
+- To install from source, you can download the source code and [Load Unpacked](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) from the root folder.
 
 ## Bugs/Feature Requests
 You can look at [Issues](https://github.com/GreyTeddy/searching_things/issues) for any bugs and feature request that exist already.
