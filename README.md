@@ -23,7 +23,7 @@ An extension to search using multiple sites at once!
 
 ## Installation
 
-- The extension is currently being reviewed, so availability on the chrome extension store is pending...
+- [From the Chrome Web Store](https://chromewebstore.google.com/detail/search-things/aokpbbgodkjgafgdegbhiaebhamejakn)! 
 - To install manually, you can find the release `.crx` package in the [Releases](https://github.com/GreyTeddy/searching_things/releases) page.
 - To install from source, you can download the source code and [Load Unpacked](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) from the root folder.
 
